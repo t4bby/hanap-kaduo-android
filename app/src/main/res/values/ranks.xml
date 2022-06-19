@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="rank_array">
+        <item>Iron</item>
+        <item>Bronze</item>
+        <item>Silver</item>
+        <item>Gold</item>
+        <item>Platinum</item>
+        <item>Diamond</item>
+        <item>Master</item>
+        <item>Grandmaster</item>
+        <item>Challenger</item>
+    </string-array>
+
+</resources>

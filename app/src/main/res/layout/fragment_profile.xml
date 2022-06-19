@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+        android:id="@+id/container"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.fragments.profile.ProfileFragment">
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp">
+
+            <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    app:cardBackgroundColor="@color/white"
+                    app:cardMaxElevation="12dp"
+                    app:cardPreventCornerOverlap="true"
+                    tools:layout_editor_absoluteY="12dp"
+                    tools:layout_editor_absoluteX="12dp">
+
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="500dp">
+
+                    <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/sample"
+                            android:id="@+id/imageView2"
+                            android:layout_marginTop="0dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_marginStart="0dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="0dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginBottom="0dp"
+                            android:scaleType="centerCrop"
+                            android:adjustViewBounds="true"/>
+
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentStart="true"
+                            android:background="@drawable/main_swipe_gradient">
+
+                        <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginBottom="8dp"
+                                android:layout_marginEnd="16dp">
+
+                            <TextView
+                                    android:text="User Name"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/white"
+                                    />
+
+                            <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                <TextView
+                                        android:textColor="@color/white"
+                                        android:text="Gender"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        />
+
+                                <Space
+                                        android:layout_width="8dp"
+                                        android:layout_height="wrap_content"/>
+
+                                <TextView
+                                        android:text="Role"
+                                        android:textColor="@color/white"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        />
+
+                                <Space
+                                        android:layout_width="8dp"
+                                        android:layout_height="wrap_content"/>
+
+                                <TextView
+                                        android:text="Rank"
+                                        android:textColor="@color/white"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="18dp"/>
+
+            <TextView
+                    android:text="Bio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
+
+            <TextView
+                    android:text="I sip water kinda slow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+            <GridView
+                    android:id="@+id/image_grid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:numColumns="auto_fit"
+                    android:columnWidth="90dp"
+                    android:horizontalSpacing="10dp"
+                    android:verticalSpacing="10dp"
+                    android:gravity="center"
+                    android:stretchMode="columnWidth"
+                    android:scrollbars="none"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="24dp"/>
+        </LinearLayout>
+
+    </ScrollView>
+
+</FrameLayout>

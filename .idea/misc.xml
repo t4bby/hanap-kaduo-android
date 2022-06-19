@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/drawable/main_swipe_gradient.xml" value="0.31197916666666664" />
+        <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/layout/activity_detail.xml" value="0.188671875" />
+        <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/layout/content_main.xml" value="0.3625" />
+        <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/layout/fragment_filter.xml" value="0.33" />
+        <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/layout/fragment_first.xml" value="0.33" />
+        <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/layout/fragment_matchmaking.xml" value="0.18541666666666667" />
+        <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/layout/fragment_message.xml" value="0.23854166666666668" />
+        <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/layout/fragment_messages.xml" value="0.3484375" />
+        <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/layout/fragment_profile.xml" value="0.25" />
+        <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/layout/fragment_second.xml" value="0.3625" />
+        <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/menu/bottom_nav_menu.xml" value="0.2" />
+        <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/menu/matchmaking.xml" value="0.2" />
+        <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/menu/menu_matchmaking.xml" value="0.31145833333333334" />
+        <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/menu/navigation.xml" value="0.2" />
+        <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/menu/profile.xml" value="0.2671875" />
+      </map>
+    </option>
+  </component>
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="jbr-11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Hanap Ka-Duo</string>
+
+    <string name="title_activity_main">Find Match</string>
+    <string name="title_activity_message">Message</string>
+
+    <string name="matchmaking_fragment_title">Find Match</string>
+    <string name="profile_fragment_title">Profile</string>
+    <string name="filter_fragment_title">Match Preferences</string>
+    <string name="messages_fragment_title">Messages</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="action_menu_filter">Filter</string>
+
+    <string name="date_header_today">Today</string>
+    <string name="date_header_yesterday">Yesterday</string>
+    <string name="preferences_save_success">Matchmaking Preferences Saved!</string>
+    <string name="save_preferences">Save Preferences</string>
+
+</resources>

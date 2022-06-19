@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/nav_graph"
+            app:startDestination="@id/matchmaking_fragment">
+
+    <fragment
+            android:id="@+id/matchmaking_fragment"
+            android:name="corp.amq.hkd.ui.fragments.matchmaking.MatchmakingFragment"
+            android:label="@string/matchmaking_fragment_title"
+            tools:layout="@layout/fragment_matchmaking">
+    </fragment>
+
+    <fragment
+            android:id="@+id/messages_fragment"
+            android:name="corp.amq.hkd.ui.fragments.messages.MessagesFragment"
+            android:label="@string/messages_fragment_title"
+            tools:layout="@layout/fragment_messages"/>
+
+    <fragment
+            android:id="@+id/profile_fragment"
+            android:name="corp.amq.hkd.ui.fragments.profile.ProfileFragment"
+            android:label="@string/profile_fragment_title"
+            tools:layout="@layout/fragment_profile"/>
+
+    <fragment
+            android:id="@+id/filter_fragment"
+            android:name="corp.amq.hkd.ui.fragments.filters.FilterFragment"
+            android:label="@string/filter_fragment_title"
+            tools:layout="@layout/fragment_filter">
+        <action
+                android:id="@+id/action_filter_fragment_to_matchmaking_fragment"
+                app:destination="@id/matchmaking_fragment"/>
+    </fragment>
+
+</navigation>

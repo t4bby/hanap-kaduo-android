@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+            android:id="@+id/matchmaking_fragment"
+            android:icon="@drawable/ic_baseline_cottage_24"
+            android:title="@string/matchmaking_fragment_title">
+    </item>
+
+    <item
+            android:id="@+id/messages_fragment"
+            android:icon="@drawable/ic_baseline_chat_24"
+            android:title="@string/messages_fragment_title">
+    </item>
+
+    <item
+            android:id="@+id/profile_fragment"
+            android:icon="@drawable/ic_baseline_assignment_ind_24"
+            android:title="@string/profile_fragment_title">
+    </item>
+</menu>
