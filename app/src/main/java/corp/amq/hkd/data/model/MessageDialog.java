@@ -9,18 +9,18 @@ public class MessageDialog implements IDialog<Message> {
     private String id;
     private String dialogPhoto;
     private String dialogName;
-    private ArrayList<User> users;
+    private ArrayList<MessageUser> messageUsers;
     private Message lastMessage;
 
     private int unreadCount;
 
     public MessageDialog(String id, String name, String photo,
-                         ArrayList<User> users, Message lastMessage, int unreadCount) {
+                         ArrayList<MessageUser> messageUsers, Message lastMessage, int unreadCount) {
 
         this.id = id;
         this.dialogName = name;
         this.dialogPhoto = photo;
-        this.users = users;
+        this.messageUsers = messageUsers;
         this.lastMessage = lastMessage;
         this.unreadCount = unreadCount;
     }
@@ -41,8 +41,8 @@ public class MessageDialog implements IDialog<Message> {
     }
 
     @Override
-    public ArrayList<User> getUsers() {
-        return users;
+    public ArrayList<MessageUser> getUsers() {
+        return messageUsers;
     }
 
     @Override

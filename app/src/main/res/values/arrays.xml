@@ -13,4 +13,19 @@
         <item>Challenger</item>
     </string-array>
 
+    <string-array name="role_array">
+        <item>Top</item>
+        <item>Middle</item>
+        <item>Bottom</item>
+        <item>Jungle</item>
+        <item>Support</item>
+    </string-array>
+
+    <string-array name="gender_array">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Non-Binary</item>
+        <item>Unknown</item>
+    </string-array>
+
 </resources>

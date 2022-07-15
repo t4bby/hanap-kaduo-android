@@ -35,9 +35,9 @@ public class ImageAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         ImageView imageView = new ImageView(mContext);
-        imageView.setLayoutParams(new GridView.LayoutParams(250, 500));
+        imageView.setLayoutParams(new GridView.LayoutParams( 500, 500));
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        imageView.setPadding(8, 8, 8, 8);
+        imageView.setPadding(1, 1, 1, 1);
 
         // Picasso.get().load(urls[position]).into(imageView);
         Picasso.get().load(R.drawable.sample2).into(imageView);

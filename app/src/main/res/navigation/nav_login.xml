@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_login"
+    app:startDestination="@id/loginSelectorFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="corp.amq.hkd.ui.fragments.login.LoginFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_login" />
+
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="corp.amq.hkd.ui.fragments.registration.RegistrationFragment"
+        android:label="Registration"
+        tools:layout="@layout/fragment_registration" />
+
+    <fragment
+        android:id="@+id/loginSelectorFragment"
+        android:name="corp.amq.hkd.ui.fragments.loginselector.LoginSelectorFragment"
+        android:label="Welcome to Hanap-Ka Duo"
+        tools:layout="@layout/fragment_login_selector" >
+        <action
+            android:id="@+id/action_loginSelectorFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_loginSelectorFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
+    </fragment>
+</navigation>

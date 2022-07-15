@@ -3,6 +3,8 @@
     package="corp.amq.hkd" >
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
 
     <application
         android:allowBackup="true"
@@ -10,21 +12,23 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.HanapKaDuo" >
+        android:theme="@style/Theme.HanapKaDuo">
+
         <activity
-            android:name=".ui.MainActivity"
-            android:exported="true"
-            android:label="@string/title_activity_main"
-            android:theme="@style/Theme.HanapKaDuo.NoActionBar" >
+            android:name=".ui.SplashScreenActivity"
+            android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
+        <activity android:name=".ui.LoginActivity" />
+        <activity android:name=".ui.DashboardActivity" />
         <activity android:name=".ui.MessageActivity"
                   android:label="@string/title_activity_message"/>
+
     </application>
 
 </manifest>

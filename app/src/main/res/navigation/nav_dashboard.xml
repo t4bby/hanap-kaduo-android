@@ -3,13 +3,17 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/nav_graph"
-            app:startDestination="@id/matchmaking_fragment">
+            app:startDestination="@id/messages_fragment">
 
     <fragment
             android:id="@+id/matchmaking_fragment"
             android:name="corp.amq.hkd.ui.fragments.matchmaking.MatchmakingFragment"
             android:label="@string/matchmaking_fragment_title"
             tools:layout="@layout/fragment_matchmaking">
+
+        <action
+            android:id="@+id/action_matchmaking_fragment_to_profile_fragment"
+            app:destination="@id/profile_fragment" />
     </fragment>
 
     <fragment
@@ -22,7 +26,15 @@
             android:id="@+id/profile_fragment"
             android:name="corp.amq.hkd.ui.fragments.profile.ProfileFragment"
             android:label="@string/profile_fragment_title"
-            tools:layout="@layout/fragment_profile"/>
+        tools:layout="@layout/fragment_profile">
+
+        <argument
+            android:name="profileArg"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+
+    </fragment>
 
     <fragment
             android:id="@+id/filter_fragment"
