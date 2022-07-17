@@ -13,23 +13,13 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:id="@+id/topLinearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:gravity="center">
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@+id/topLinearLayout"
-            tools:layout_editor_absoluteX="0dp">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
 
             <com.google.android.material.textfield.TextInputLayout
@@ -43,9 +33,9 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_email"
-                    android:inputType="textEmailAddress"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -63,6 +53,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_password"
                     android:layout_width="match_parent"
+                    android:inputType="textPassword"
                     android:layout_height="wrap_content" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -71,22 +62,21 @@
                 android:id="@+id/loginBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/btn_login"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                style="?attr/materialButtonOutlinedStyle"
-                />
+                android:text="@string/btn_login" />
 
             <TextView
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 android:id="@+id/forgot_password_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/forgot_password_btn"
                 android:textAlignment="textEnd"
-                android:layout_gravity="end"
-                android:textColor="@color/purple_700"
+                android:textColor="@color/pink_700"
                 android:textStyle="bold" />
 
 

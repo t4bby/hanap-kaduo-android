@@ -20,6 +20,7 @@ import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -63,18 +64,13 @@ public class LoginFragment extends Fragment {
         });
 
         binding.forgotPasswordBtn.setOnClickListener(view -> {
-            TextInputLayout textInputLayout = new TextInputLayout(context);
-            textInputLayout.setPadding(getResources().getDimensionPixelOffset(R.dimen.dp_19), 0,
-                    getResources().getDimensionPixelOffset(R.dimen.dp_19),
-                    0);
-
-            EditText input = new EditText(context);
-            textInputLayout.setHint("Email");
-            textInputLayout.addView(input);
+            View viewInflated = LayoutInflater.from(getContext()).inflate(R.layout.dialog_forgot_password,
+                    (ViewGroup) getView(), false);
+            final EditText input = (EditText) viewInflated.findViewById(R.id.input);
 
             AlertDialog alertDialog = new AlertDialog.Builder(context)
                     .setTitle("Reset Password")
-                    .setView(textInputLayout)
+                    .setView(viewInflated)
                     .setMessage("Please enter your email address")
                     .setPositiveButton("Submit", (dialogInterface, i) ->
                             mAuth.sendPasswordResetEmail(input.getText().toString()).addOnCompleteListener(

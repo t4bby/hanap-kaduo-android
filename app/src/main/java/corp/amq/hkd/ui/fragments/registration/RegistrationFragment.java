@@ -32,7 +32,9 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import corp.amq.hkd.R;
@@ -102,8 +104,14 @@ public class RegistrationFragment extends Fragment {
                                     user.put("gender", binding.gender.getEditText().getText().toString());
                                     user.put("rank", binding.rank.getEditText().getText().toString());
                                     user.put("role",binding.role.getEditText().getText().toString());
-                                    user.put("profile_img_url", "");
+                                    user.put("profile_img_url",
+                                            "https://firebasestorage.googleapis.com/v0/b/hanapkaduo-bb466.appspot.com/o/unknown.png?alt=media&token=4d8bfcfe-6ee4-49f7-80c4-b7a31b0f3901");
                                     user.put("bio", "New user");
+
+                                    assert firebaseUser != null;
+                                    user.put("uid", firebaseUser.getUid());
+                                    user.put("featured_image", new ArrayList<String>());
+
                                     createDocument(firebaseUser.getUid(), user);
 
                                     Snackbar snackbar = Snackbar
@@ -140,15 +148,12 @@ public class RegistrationFragment extends Fragment {
 
     private void createDocument(String uid, Object user) {
         Log.d("TAG", uid + user);
-
         db.collection("users")
-                .document(uid)
-                .set(user)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        FirebaseUser user = mAuth.getCurrentUser();
-                        if(user != null){
+                .add(user)
+                .addOnCompleteListener(task -> {
+                    if(task.isSuccessful()) {
+                        FirebaseUser user1 = mAuth.getCurrentUser();
+                        if(user1 != null){
                             Intent intent = new Intent(context, DashboardActivity.class);
                             startActivity(intent);
                             getActivity().finish();

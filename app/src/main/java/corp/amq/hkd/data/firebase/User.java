@@ -3,6 +3,7 @@ package corp.amq.hkd.data.firebase;
 import com.google.firebase.database.PropertyName;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class User {
 
@@ -10,7 +11,7 @@ public class User {
     String display_name;
 
     @PropertyName("featured_image")
-    String[] featured_image;
+    List<String> featured_image;
 
     @PropertyName("gender")
     String gender;
@@ -26,6 +27,19 @@ public class User {
 
     @PropertyName("bio")
     String bio;
+
+    @PropertyName("uid")
+    String uid;
+
+    @PropertyName("uid")
+    public String getUid() {
+        return uid;
+    }
+
+    @PropertyName("uid")
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
 
     @PropertyName("bio")
     public String getBio() {
@@ -48,12 +62,12 @@ public class User {
     }
 
     @PropertyName("featured_image")
-    public String[] getFeatured_image() {
+    public List<String> getFeatured_image() {
         return featured_image;
     }
 
     @PropertyName("featured_image")
-    public void setFeatured_image(String[] featured_image) {
+    public void setFeatured_image(List<String> featured_image) {
         this.featured_image = featured_image;
     }
 
@@ -94,5 +108,19 @@ public class User {
     @PropertyName("role")
     public void setRole(String role) {
         this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "display_name='" + display_name + '\'' +
+                ", featured_image=" + featured_image +
+                ", gender='" + gender + '\'' +
+                ", profile_img_url='" + profile_img_url + '\'' +
+                ", rank='" + rank + '\'' +
+                ", role='" + role + '\'' +
+                ", bio='" + bio + '\'' +
+                ", uid='" + uid + '\'' +
+                '}';
     }
 }

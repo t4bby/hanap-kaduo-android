@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragments.profile.ProfileFragment">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,18 +19,16 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="12dp">
+            android:layout_height="wrap_content">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
+                app:cardCornerRadius="@dimen/dp_19"
                 app:cardBackgroundColor="@color/white"
                 app:cardMaxElevation="12dp"
                 app:cardPreventCornerOverlap="true"
-                tools:layout_editor_absoluteY="12dp"
-                tools:layout_editor_absoluteX="12dp">
+                android:layout_margin="12dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -50,107 +48,133 @@
                         android:layout_marginBottom="0dp"
                         android:adjustViewBounds="true"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/sample" />
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentStart="true"
-                        android:background="@drawable/main_swipe_gradient">
-
-                        <LinearLayout
-                            android:orientation="vertical"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginBottom="8dp"
-                            android:layout_marginEnd="16dp">
-
-                            <TextView
-                                android:id="@+id/ign"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="18sp"
-                                android:textStyle="bold"
-                                android:textColor="@color/white"
-                                />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
-
-                                <TextView
-                                    android:id="@+id/gender"
-                                    android:textColor="@color/white"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    />
-
-                                <Space
-                                    android:layout_width="8dp"
-                                    android:layout_height="wrap_content"/>
-
-                                <TextView
-                                    android:id="@+id/role"
-                                    android:textColor="@color/white"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    />
-
-                                <Space
-                                    android:layout_width="8dp"
-                                    android:layout_height="wrap_content"/>
-
-                                <TextView
-                                    android:id="@+id/rank"
-                                    android:textColor="@color/white"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    />
-
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                    </LinearLayout>
+                        tools:src="@tools:sample/avatars" />
 
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="18dp"/>
 
-            <TextView
-                android:text="Bio"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp">
 
-            <TextView
-                android:id="@+id/bio_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="vertical">
 
-            <GridView
+                    <TextView
+                        android:id="@+id/ign"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="IGN"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/bio_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                        android:layout_marginBottom="16dp"
+                        android:text="testing"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/gender"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="8dp"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="12dp"
+                            android:paddingBottom="4dp"
+                            android:drawablePadding="10dp"
+                            app:drawableLeftCompat="@drawable/icons8_gender_24"
+                            android:textColor="@color/white"
+                            android:background="@drawable/rounded_corner"
+                            android:backgroundTint="@color/purple_200"
+                            android:shadowColor="@color/text_shadow"
+                            android:shadowDx="1"
+                            android:shadowDy="1"
+                            android:shadowRadius="2"/>
+
+                        <Space
+                            android:layout_width="8dp"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/role"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:drawableLeftCompat="@drawable/ic_twotone_boy_24"
+                            android:paddingTop="8dp"
+                            android:paddingStart="12dp"
+                            android:drawablePadding="10dp"
+                            android:paddingEnd="12dp"
+                            android:paddingBottom="4dp"
+                            android:textColor="@color/white"
+                            android:background="@drawable/rounded_corner"
+                            android:backgroundTint="@color/pink_500"
+                            android:shadowColor="@color/text_shadow"
+                            android:shadowDx="1"
+                            android:shadowDy="1"
+                            android:shadowRadius="2" />
+
+                        <Space
+                            android:layout_width="8dp"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/rank"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="8dp"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="12dp"
+                            android:paddingBottom="4dp"
+                            app:drawableLeftCompat="@drawable/ic_icons8_league_of_legends"
+                            android:drawablePadding="10dp"
+                            android:textColor="@color/white"
+                            android:background="@drawable/rounded_corner"
+                            android:shadowColor="@color/text_shadow"
+                            android:shadowDx="1"
+                            android:shadowDy="1"
+                            android:shadowRadius="2"
+
+                            android:backgroundTint="@color/pink_700" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <corp.amq.hkd.ui.ExpandableGridView
                 android:id="@+id/image_grid"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:numColumns="3"
-                android:columnWidth="0dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:columnWidth="100dp"
+                android:verticalSpacing="10dp"
+                android:horizontalSpacing="10dp"
                 android:gravity="center"
-                android:stretchMode="spacingWidth"
-                android:scrollbars="none"
+                android:numColumns="auto_fit"
+                android:stretchMode="columnWidth"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="24dp"/>
+                android:layout_marginBottom="24dp">
+
+            </corp.amq.hkd.ui.ExpandableGridView>
+
         </LinearLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </FrameLayout>

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "713620037717",
+    "firebase_url": "https://hanapkaduo-bb466-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "hanapkaduo-bb466",
+    "storage_bucket": "hanapkaduo-bb466.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:713620037717:android:eea777a085b461c2a2b4dc",
+        "android_client_info": {
+          "package_name": "corp.amq.hkd"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "713620037717-p4r19d2tqcjn4pk4fhov485m89kqjdtu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6ENqOnObPC_O82zhddZcJb7WEFGHnTFQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "713620037717-p4r19d2tqcjn4pk4fhov485m89kqjdtu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

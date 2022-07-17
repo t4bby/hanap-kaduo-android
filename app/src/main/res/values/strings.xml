@@ -1,29 +1,24 @@
 <resources>
     <string name="app_name">Hanap Ka-Duo</string>
 
-    <string name="title_activity_main">Find Match</string>
+    <string name="title_activity_main">Hanap Ka-Duo</string>
     <string name="title_activity_message">Message</string>
 
-    <string name="matchmaking_fragment_title">Find Match</string>
+    <string name="matchmaking_fragment_title">Hanap Ka-Duo</string>
     <string name="profile_fragment_title">Profile</string>
     <string name="filter_fragment_title">Match Preferences</string>
     <string name="messages_fragment_title">Messages</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="action_menu_filter">Filter</string>
 
     <string name="date_header_today">Today</string>
     <string name="date_header_yesterday">Yesterday</string>
     <string name="preferences_save_success">Matchmaking Preferences Saved!</string>
     <string name="save_preferences">Save Preferences</string>
+
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome!"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="btn_login">Login</string>
     <string name="btn_register">Register</string>
@@ -31,5 +26,25 @@
 
 
     <string name="agree_to_the_terms_and_condition">I agree to the <a href="https://amqcorp.blogspot.com/2021/12/conditions-by-downloading-or-using-app.html">terms and conditions</a></string>
+    <string name="message_fragment_title">Message</string>
+    <string name="no_available_match">No Available Match</string>
+    <string name="there_is_no_available_message">There is no available message</string>
+    <string name="roles">Roles</string>
+    <string name="top">Top</string>
+    <string name="jungler">Jungler</string>
+    <string name="middle">Middle</string>
+    <string name="bot">Bot</string>
+    <string name="support">Support</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="non_binary">Non-Binary</string>
+    <string name="unknown">Unknown</string>
+    <string name="gender">Gender</string>
+    <string name="update_profile">Update Profile</string>
+    <string name="profile_settings">Profile Settings</string>
+    <string name="rank">Rank</string>
+    <string name="role">Role</string>
+    <string name="prompt_old_new_pass">Please enter your old and new password</string>
+    <string name="prompt_change_password">Change Password</string>
 
 </resources>

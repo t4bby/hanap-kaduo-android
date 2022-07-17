@@ -1,89 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              tools:context=".ui.fragments.filters.FilterFragment"
-              >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragments.filters.FilterFragment">
 
     <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="0dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="0dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="0dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="0dp">
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="0dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="0dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="0dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp">
 
         <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardPreventCornerOverlap="true"
-                app:cardCornerRadius="4dp"
-                app:cardUseCompatPadding="true">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardPreventCornerOverlap="true"
+            app:cardCornerRadius="4dp"
+            app:cardUseCompatPadding="true">
 
             <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    >
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <TextView
-                        android:text="Roles"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?attr/textAppearanceHeadline6"
-                        android:paddingStart="16dp"
-                        android:paddingEnd="16dp"
-                        android:paddingTop="16dp"
-                        />
+                    android:text="@string/roles"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?attr/textAppearanceHeadline6"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:paddingTop="16dp"
+                    />
 
                 <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp">
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp">
 
                     <CheckBox
-                            android:text="Top"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            />
+                        android:id="@+id/roles_top"
+                        android:text="@string/top"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        />
 
                     <CheckBox
-                            android:text="Jungler"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            />
+                        android:id="@+id/roles_jungle"
+                        android:text="@string/jungler"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        />
 
                     <CheckBox
-                            android:text="Middle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            />
+                        android:id="@+id/roles_middle"
+                        android:text="@string/middle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        />
 
                     <CheckBox
-                            android:text="Bot"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            />
+                        android:id="@+id/roles_bot"
+                        android:text="@string/bot"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        />
 
                     <CheckBox
-                            android:text="Support"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            />
+                        android:id="@+id/roles_support"
+                        android:text="@string/support"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        />
                 </LinearLayout>
             </LinearLayout>
 
@@ -91,36 +94,36 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardPreventCornerOverlap="true"
-                app:cardCornerRadius="4dp"
-                app:cardUseCompatPadding="true">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardPreventCornerOverlap="true"
+            app:cardCornerRadius="4dp"
+            app:cardUseCompatPadding="true">
 
             <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    >
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
 
                 <TextView
-                        android:text="Rank"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?attr/textAppearanceHeadline6"
-                        android:paddingStart="16dp"
-                        android:paddingEnd="16dp"
-                        android:paddingTop="16dp"
-                        />
+                    android:text="Rank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?attr/textAppearanceHeadline6"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:paddingTop="16dp"
+                    />
 
                 <Spinner
-                        android:layout_width="match_parent"
-                        android:layout_height="54dp"
-                        android:id="@+id/spinner"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:spinnerMode="dropdown"
-                        android:entries="@array/rank_array"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:id="@+id/rank_spinner"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:spinnerMode="dropdown"
+                    android:entries="@array/rank_array_filter"/>
 
             </LinearLayout>
 
@@ -128,44 +131,41 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardPreventCornerOverlap="true"
-                app:cardCornerRadius="4dp"
-                app:cardUseCompatPadding="true">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardPreventCornerOverlap="true"
+            app:cardCornerRadius="4dp"
+            app:cardUseCompatPadding="true">
 
             <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    >
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
 
                 <TextView
-                        android:text="Gender"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?attr/textAppearanceHeadline6"
-                        android:paddingStart="16dp"
-                        android:paddingEnd="16dp"
-                        android:paddingTop="16dp"
-                        />
+                    android:text="@string/gender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?attr/textAppearanceHeadline6"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:paddingTop="16dp"
+                    />
 
                 <LinearLayout
-                        android:orientation="horizontal"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <Spinner
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                    <CheckBox
-                            android:text="Male"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            />
-
-                    <CheckBox
-                            android:text="Female"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            />
+                        android:layout_height="54dp"
+                        android:id="@+id/gender_spinner"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:spinnerMode="dropdown"
+                        android:entries="@array/gender_array_filter"/>
 
                 </LinearLayout>
 
@@ -177,15 +177,15 @@
     </LinearLayout>
 
     <Button
-            android:text="@string/save_preferences"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/save_preference_btn"
-            android:layout_marginBottom="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="16dp"/>
+        android:text="@string/save_preferences"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/save_preference_btn"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="16dp"/>
 
 </RelativeLayout>

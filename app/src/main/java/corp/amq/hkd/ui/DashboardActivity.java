@@ -1,15 +1,14 @@
 package corp.amq.hkd.ui;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import corp.amq.hkd.R;
 import corp.amq.hkd.databinding.ActivityDashboardBinding;
 
@@ -36,9 +35,19 @@ public class DashboardActivity extends AppCompatActivity {
 
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
-        // Setup BottomNavigationBar
-        BottomNavigationView bottomNav = findViewById(R.id.nav_view);
-        NavigationUI.setupWithNavController(bottomNav, navController);
+        NavigationUI.setupWithNavController(binding.navView, navController);
+
+        navController.addOnDestinationChangedListener(
+                (navController1, navDestination, bundle) -> {
+                    if(navDestination.getId() == R.id.message_fragment) {
+                        binding.navView.setVisibility(View.GONE);
+                    } else if(navDestination.getId() == R.id.profile_settings_fragment) {
+                        binding.navView.setVisibility(View.GONE);
+                    }
+                    else {
+                        binding.navView.setVisibility(View.VISIBLE);
+                    }
+                });
 
     }
 

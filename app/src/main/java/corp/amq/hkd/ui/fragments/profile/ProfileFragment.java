@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -67,51 +68,68 @@ public class ProfileFragment extends Fragment {
             profileUid = mAuth.getUid();
         }
 
-        db.collection("users").document(profileUid).get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful()) {
-                    User user = task.getResult().toObject(User.class);
+        db.collection("users").whereEqualTo("uid", profileUid).get()
+                .addOnCompleteListener(task -> {
+                    if(task.isSuccessful()) {
+                        if(task.getResult().getDocuments().size() > 0) {
+                            User user = task.getResult().getDocuments().get(0).toObject(User.class);
 
-                    if(user.getProfile_img_url().isEmpty()) {
-                        Picasso.get().load(R.drawable.sample).into(binding.profileImage);
+                            assert user != null;
+                            if(!user.getProfile_img_url().isEmpty()) {
+
+                                binding.profileImage.setOnClickListener(view1 ->
+                                        PhotoViewer.build(getContext(), user.getProfile_img_url(),
+                                                (url, imageView, index, progressBar) -> {
+                                                    Picasso.get().load(url).into(imageView);
+                                                    progressBar.setVisibility(View.GONE);
+                                                }).show());
+
+                                Picasso.get().load(user.getProfile_img_url()).into(binding.profileImage);
+                            }
+
+                            binding.bioText.setText(user.getBio());
+                            binding.gender.setText(user.getGender());
+                            binding.role.setText(user.getRole());
+                            binding.ign.setText(user.getDisplay_name());
+                            binding.rank.setText(user.getRank());
+                        }
+
                     } else {
-                        Picasso.get().load(user.getProfile_img_url()).into(binding.profileImage);
+                        Snackbar snackbar = Snackbar
+                                .make(binding.getRoot(),
+                                        "Network Error", Snackbar.LENGTH_LONG);
+                        snackbar.show();
                     }
 
-                    binding.bioText.setText(user.getBio());
-                    binding.gender.setText(user.getGender());
-                    binding.role.setText(user.getRole());
-                    binding.ign.setText(user.getDisplay_name());
-                    binding.rank.setText(user.getRank());
+                    progressDialog.dismiss();
 
-                } else {
-                    Snackbar snackbar = Snackbar
-                            .make(binding.getRoot(),
-                                    "Network Error", Snackbar.LENGTH_LONG);
-                    snackbar.show();
+                });
+
+        db.collection("users").whereEqualTo("uid", profileUid).get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()) {
+                if(task.getResult().getDocuments().size() > 0) {
+                    User user = task.getResult().getDocuments().get(0).toObject(User.class);
+
+                    assert user != null;
+                    if(user.getFeatured_image() != null) {
+                        String[] strings = user.getFeatured_image().toArray(new String[0]);
+                        ImageAdapter imageAdapter = new ImageAdapter(getContext(), strings);
+
+                        binding.imageGrid.setAdapter(imageAdapter);
+                        binding.imageGrid.setExpanded(true);
+                        binding.imageGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                PhotoViewer.build(getContext(), strings, (url, imageView, index, progressBar) -> {
+                                    Picasso.get().load(url).into(imageView);
+                                    progressBar.setVisibility(View.GONE);
+                                }).show();
+                            }
+                        });
+                    }
                 }
-
-                progressDialog.dismiss();
-
             }
         });
-
-//        ImageAdapter imageAdapter = new ImageAdapter(getContext(), strings);
-//
-//        binding.imageGrid.setAdapter(imageAdapter);
-//
-//        binding.imageGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                PhotoViewer.build(getContext(), strings, (url, imageView, index, progressBar) -> {
-//                    Picasso.get().load(R.drawable.sample2).into(imageView);
-//                    progressBar.setVisibility(View.GONE);
-//                }).show();
-//            }
-//        });
-
     }
 
     @Override
@@ -125,21 +143,17 @@ public class ProfileFragment extends Fragment {
 
         switch (item.getItemId()) {
             case R.id.menu_profile_settings:
+                Navigation.findNavController(getView())
+                        .navigate(R.id.action_profile_fragment_to_profile_settings_fragment);
                 return true;
 
             case R.id.menu_profile_logout:
-                progressDialog = ProgressDialog.show(context, "Logging out","Please Wait...", true);
                 mAuth.signOut();
-                mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
-                    @Override
-                    public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                        progressDialog.dismiss();
-                        Intent mainIntent= new Intent(context, LoginActivity.class);
-                        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(mainIntent);
-                        getActivity().finish();
-                    }
-                });
+                Intent mainIntent= new Intent(context, LoginActivity.class);
+                mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(mainIntent);
+                getActivity().finish();
+
                 return true;
         }
 
@@ -148,7 +162,9 @@ public class ProfileFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(@NonNull @NotNull Menu menu, @NonNull @NotNull MenuInflater inflater) {
-        inflater.inflate(R.menu.profile, menu);
+        if(profileUid.equals(mAuth.getUid())){
+            inflater.inflate(R.menu.profile, menu);
+        }
         super.onCreateOptionsMenu(menu, inflater);
     }
 }

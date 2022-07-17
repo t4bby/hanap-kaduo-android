@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
             android:id="@+id/matchmaking_fragment"
-            android:icon="@drawable/ic_baseline_cottage_24"
+            android:icon="@drawable/ic_baseline_auto_awesome_24"
             android:title="@string/matchmaking_fragment_title">
     </item>
 

@@ -3,7 +3,7 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/nav_graph"
-            app:startDestination="@id/messages_fragment">
+            app:startDestination="@id/matchmaking_fragment">
 
     <fragment
             android:id="@+id/matchmaking_fragment"
@@ -16,11 +16,24 @@
             app:destination="@id/profile_fragment" />
     </fragment>
 
+
+    <fragment
+        android:id="@+id/profile_settings_fragment"
+        android:name="corp.amq.hkd.ui.fragments.settings.SettingsFragment"
+        android:label="@string/profile_settings"
+        tools:layout="@layout/fragment_profile_settings">
+
+    </fragment>
+
     <fragment
             android:id="@+id/messages_fragment"
             android:name="corp.amq.hkd.ui.fragments.messages.MessagesFragment"
             android:label="@string/messages_fragment_title"
-            tools:layout="@layout/fragment_messages"/>
+            tools:layout="@layout/fragment_messages">
+        <action
+            android:id="@+id/action_messages_fragment_to_message_fragment"
+            app:destination="@id/message_fragment" />
+    </fragment>
 
     <fragment
             android:id="@+id/profile_fragment"
@@ -33,6 +46,27 @@
             app:argType="string"
             app:nullable="true"
             android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_profile_fragment_to_profile_settings_fragment"
+            app:destination="@id/profile_settings_fragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/message_fragment"
+        android:name="corp.amq.hkd.ui.fragments.messages.MessageFragment"
+        android:label="@string/message_fragment_title"
+        tools:layout="@layout/fragment_message">
+
+        <argument
+            android:name="messageArg"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+
+        <action
+            android:id="@+id/action_message_fragment_to_profile_fragment"
+            app:destination="@id/profile_fragment" />
 
     </fragment>
 

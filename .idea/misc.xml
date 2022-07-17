@@ -3,7 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/drawable/ic_baseline_add_a_photo_24.xml" value="0.1925" />
+        <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/drawable/ic_baseline_chat_24.xml" value="0.1925" />
+        <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/drawable/ic_icons8_league_of_legends.xml" value="0.1975" />
+        <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/drawable/ic_league_of_legends.xml" value="0.1925" />
         <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/drawable/main_swipe_gradient.xml" value="0.31197916666666664" />
+        <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/drawable/rounded_corner.xml" value="0.1925" />
         <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/layout/activity_dashboard.xml" value="0.1950136612021858" />
         <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/layout/activity_detail.xml" value="0.188671875" />
         <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/layout/activity_login.xml" value="0.17520491803278687" />
@@ -11,14 +16,17 @@
         <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/layout/activity_message.xml" value="0.1953125" />
         <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/layout/activity_splash_screen.xml" value="0.17520491803278687" />
         <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/layout/content_main.xml" value="0.3625" />
+        <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/layout/dialog_change_password.xml" value="0.18442622950819673" />
+        <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/layout/dialog_forgot_password.xml" value="0.171875" />
         <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/layout/fragment_filter.xml" value="0.33" />
         <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/layout/fragment_first.xml" value="0.33" />
         <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/layout/fragment_login.xml" value="0.25" />
         <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/layout/fragment_login_selector.xml" value="0.271875" />
         <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/layout/fragment_matchmaking.xml" value="0.18541666666666667" />
         <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/layout/fragment_message.xml" value="0.23854166666666668" />
-        <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/layout/fragment_messages.xml" value="0.3484375" />
+        <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/layout/fragment_messages.xml" value="0.17" />
         <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/layout/fragment_profile.xml" value="0.25" />
+        <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/layout/fragment_profile_settings.xml" value="0.2" />
         <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/layout/fragment_register.xml" value="0.1" />
         <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/layout/fragment_registration.xml" value="0.22165300546448088" />
         <entry key="..\:/Users/Tabby/IdeaProjects/HanapKaDuo/app/src/main/res/layout/fragment_second.xml" value="0.3625" />

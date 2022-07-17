@@ -2,9 +2,13 @@ package corp.amq.hkd.ui;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
@@ -31,6 +35,16 @@ public class LoginActivity extends AppCompatActivity {
         ).build();
 
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+
+        navController.addOnDestinationChangedListener(
+                (navController1, navDestination, bundle) -> {
+                    if(navDestination.getId() == R.id.loginSelectorFragment) {
+                        binding.toolbar.setVisibility(View.GONE);
+                    } else {
+                        binding.toolbar.setVisibility(View.VISIBLE);
+                    }
+                }
+        );
     }
 
     @Override
