@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -76,6 +77,12 @@ public class RegistrationFragment extends Fragment {
         binding.autoCompleteTextView.setAdapter(gender_adapter);
         binding.autoCompleteTextView1.setAdapter(ranks_adapter);
         binding.autoCompleteTextView2.setAdapter(roles_adapter);
+
+        binding.termsConditionBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("https://amqcorp.blogspot.com/2021/12/conditions-by-downloading-or-using-app.html"));
+            startActivity(intent);
+        });
 
         AwesomeValidation mAwesomeValidation = new AwesomeValidation(ValidationStyle.TEXT_INPUT_LAYOUT);
         mAwesomeValidation.addValidation(binding.inputEmailLayout, Patterns.EMAIL_ADDRESS, "Please check the input");
