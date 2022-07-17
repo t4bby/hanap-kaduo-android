@@ -270,7 +270,6 @@ public class MatchmakingFragment extends Fragment {
                                                     task1 -> {
                                                         if(task1.isSuccessful()) {
                                                             if(task1.getResult().isEmpty()) {
-                                                                Log.d("TAG", "add: " + user);
                                                                 matches.add(user.getUid());
                                                             }
                                                             changeMatch();
