@@ -19,6 +19,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,6 +32,7 @@ import androidx.fragment.app.Fragment;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
+import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -46,10 +49,13 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.sha.photoviewer.PhotoViewer;
+import com.sha.photoviewer.listener.ImageLoader;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -86,7 +92,6 @@ public class SettingsFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentProfileSettingsBinding.inflate(inflater, container, false);
 
-
         String[] GENDER = getResources().getStringArray(R.array.gender_array);
         String[] RANKS = getResources().getStringArray(R.array.rank_array);
         String[] ROLES = getResources().getStringArray(R.array.role_array);
@@ -101,7 +106,7 @@ public class SettingsFragment extends Fragment {
 
         AwesomeValidation mAwesomeValidation = new AwesomeValidation(ValidationStyle.TEXT_INPUT_LAYOUT);
 
-        mAwesomeValidation.addValidation(binding.inputIgnLayout, "^[ A-Za-z0-9_@./#&+-]*$", "Please check the input");
+        mAwesomeValidation.addValidation(binding.inputIgnLayout, "^[a-zA-Z0-9](_(?!(\\.|_))|\\.(?!(_|\\.))|[a-zA-Z0-9]){1,18}[a-zA-Z0-9]$", "Please check the input");
         mAwesomeValidation.addValidation(binding.gender, "^[ A-Za-z0-9_@./#&+-]*$", "Please check the input");
         mAwesomeValidation.addValidation(binding.role, "[a-zA-Z\\s]+", "Please check the input");
         mAwesomeValidation.addValidation(binding.rank, "[a-zA-Z\\s]+", "Please check the input");
@@ -193,12 +198,12 @@ public class SettingsFragment extends Fragment {
         loadProfile();
 
         binding.imageBtn.setOnClickListener(view -> {
-            type = 0;
+            TYPE = 0;
             selectPictureDialog();
         });
 
         binding.addFeatureImage.setOnClickListener(view -> {
-            type = 1;
+            TYPE = 1;
             selectPictureDialog();
         });
 
@@ -311,6 +316,21 @@ public class SettingsFragment extends Fragment {
                             binding.autoCompleteTextView.setText(user.getGender(), false);
                             binding.autoCompleteTextView1.setText(user.getRank(), false);
                             binding.autoCompleteTextView2.setText(user.getRole(), false);
+                            binding.image.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    PhotoViewer.build(getContext(), user.getProfile_img_url(), new ImageLoader() {
+                                        @Override
+                                        public void load(@Nullable String url, @NonNull ImageView imageView,
+                                                         int index, @NonNull ProgressBar progressBar) {
+                                            progressBar.setVisibility(View.VISIBLE);
+                                            Picasso.get().load(url).into(imageView);
+                                            progressBar.setVisibility(View.GONE);
+                                        }
+                                    }).showPagingIndicator(false)
+                                            .show();
+                                }
+                            });
                             Picasso.get().load(user.getProfile_img_url()).into(binding.image);
 
                             String[] strings = user.getFeatured_image().toArray(new String[0]);
@@ -319,10 +339,15 @@ public class SettingsFragment extends Fragment {
                             binding.imageGrid.setExpanded(true);
 
                             binding.imageGrid.setOnItemClickListener((adapterView, view, i, l) -> {
-                                PhotoViewer.build(getContext(), strings, (url, imageView, index, progressBar) -> {
-                                    Picasso.get().load(url).into(imageView);
-                                    progressBar.setVisibility(View.GONE);
-                                }).show();
+                                PhotoViewer.build(getContext(), strings, new ImageLoader() {
+                                    @Override
+                                    public void load(@Nullable String url, @NonNull ImageView imageView,
+                                                     int index, @NonNull ProgressBar progressBar) {
+                                        progressBar.setVisibility(View.VISIBLE);
+                                        Picasso.get().load(url).into(imageView);
+                                        progressBar.setVisibility(View.GONE);
+                                    }
+                                }).startAtIndex(i).show();
                             });
 
                         }
@@ -331,21 +356,21 @@ public class SettingsFragment extends Fragment {
     }
 
     private void pickFromCamera() {
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(MediaStore.Images.Media.TITLE, "Temp_pic");
-        contentValues.put(MediaStore.Images.Media.DESCRIPTION, "Temp Description");
-        imageuri = context.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
-        Intent camerIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        camerIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageuri);
-        startActivityForResult(camerIntent, IMAGE_PICKCAMERA_REQUEST);
+        ImagePicker.with(this)
+                .crop()
+                .compress(1024)
+                .cameraOnly()
+                .start();
     }
 
     private void pickFromGallery() {
-        Intent galleryIntent = new Intent(Intent.ACTION_PICK);
-        galleryIntent.setType("image/*");
-        startActivityForResult(galleryIntent, IMAGEPICK_GALLERY_REQUEST);
+        ImagePicker.with(this)
+                .crop()
+                .galleryMimeTypes(new String[] {"image/png", "image/jpg", "image/jpeg"})
+                .compress(1024)
+                .galleryOnly()
+                .start();
     }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -378,24 +403,22 @@ public class SettingsFragment extends Fragment {
 
     private static final int CAMERA_REQUEST = 100;
     private static final int STORAGE_REQUEST = 200;
-    private static final int IMAGEPICK_GALLERY_REQUEST = 300;
-    private static final int IMAGE_PICKCAMERA_REQUEST = 400;
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == IMAGEPICK_GALLERY_REQUEST) {
-                imageuri = data.getData();
-                uploadProfileCoverPhoto(imageuri);
-            }
-            if (requestCode == IMAGE_PICKCAMERA_REQUEST) {
-                uploadProfileCoverPhoto(imageuri);
-            }
+            imageuri = data.getData();
+            uploadProfileCoverPhoto(imageuri);
+        } else if (resultCode == ImagePicker.RESULT_ERROR) {
+            Toast.makeText(context, ImagePicker.getError(data), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Task Cancelled", Toast.LENGTH_SHORT).show();
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    private int type = 0;
+    private static int TYPE = 0;
+
     private ProgressDialog pd;
     private void uploadProfileCoverPhoto(final Uri uri) {
 
@@ -414,7 +437,7 @@ public class SettingsFragment extends Fragment {
 
                 final Uri downloadUri = uriTask.getResult();
                 if (uriTask.isSuccessful()) {
-                    if(type == 0) {
+                    if(TYPE == 0) {
                         db.collection("users").whereEqualTo("uid", mAuth.getUid()).get()
                                 .addOnCompleteListener(task -> {
                                             if (task.isSuccessful()) {

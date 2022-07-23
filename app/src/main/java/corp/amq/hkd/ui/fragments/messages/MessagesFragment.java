@@ -192,7 +192,7 @@ public class MessagesFragment extends Fragment implements DialogsListAdapter.OnD
                                                                                                                                                     }
                                                                                                                                                 }
 
-                                                                                                                                                MessageDialog messageDialog;
+                                                                                                                                                MessageDialog messageDialog = null;
                                                                                                                                                 String unreadUid = (String) task4.getResult().child("userId").getValue();
                                                                                                                                                 Long unreadCount = null;
 
@@ -209,20 +209,21 @@ public class MessagesFragment extends Fragment implements DialogsListAdapter.OnD
                                                                                                                                                 if (auth.getUid().equals(user1_uid)) {
                                                                                                                                                     messageDialog = new MessageDialog(
                                                                                                                                                             thread,
-                                                                                                                                                            messageUserArrayList.get(0).getUser().getDisplay_name(),
-                                                                                                                                                            messageUserArrayList.get(0).getUser().getProfile_img_url(),
-                                                                                                                                                            messageUserArrayList,
-                                                                                                                                                            message,
-                                                                                                                                                            unreadCount.intValue());
-                                                                                                                                                } else {
-                                                                                                                                                    messageDialog = new MessageDialog(
-                                                                                                                                                            thread,
                                                                                                                                                             messageUserArrayList.get(1).getUser().getDisplay_name(),
                                                                                                                                                             messageUserArrayList.get(1).getUser().getProfile_img_url(),
                                                                                                                                                             messageUserArrayList,
                                                                                                                                                             message,
                                                                                                                                                             unreadCount.intValue());
+                                                                                                                                                } else if (auth.getUid().equals(user2_uid)) {
+                                                                                                                                                    messageDialog = new MessageDialog(
+                                                                                                                                                            thread,
+                                                                                                                                                            messageUserArrayList.get(0).getUser().getDisplay_name(),
+                                                                                                                                                            messageUserArrayList.get(0).getUser().getProfile_img_url(),
+                                                                                                                                                            messageUserArrayList,
+                                                                                                                                                            message,
+                                                                                                                                                            unreadCount.intValue());
                                                                                                                                                 }
+
                                                                                                                                                 chats.add(messageDialog);
                                                                                                                                                 dialogsAdapter.setItems(chats);
                                                                                                                                                 binding.textView5.setVisibility(View.GONE);
@@ -371,6 +372,7 @@ public class MessagesFragment extends Fragment implements DialogsListAdapter.OnD
 
         Bundle bundle = new Bundle();
         bundle.putSerializable("messageArg", dialog.getId());
+        bundle.putSerializable("conversationNameArg", dialog.getDialogName());
 
         assert getView() != null;
         Navigation.findNavController(getView())

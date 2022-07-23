@@ -64,6 +64,12 @@
             app:nullable="true"
             android:defaultValue="@null" />
 
+        <argument
+            android:name="conversationNameArg"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+
         <action
             android:id="@+id/action_message_fragment_to_profile_fragment"
             app:destination="@id/profile_fragment" />

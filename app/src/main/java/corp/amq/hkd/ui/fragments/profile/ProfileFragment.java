@@ -82,7 +82,7 @@ public class ProfileFragment extends Fragment {
                                                 (url, imageView, index, progressBar) -> {
                                                     Picasso.get().load(url).into(imageView);
                                                     progressBar.setVisibility(View.GONE);
-                                                }).show());
+                                                }).showPagingIndicator(false).show());
 
                                 Picasso.get().load(user.getProfile_img_url()).into(binding.profileImage);
                             }
@@ -123,7 +123,8 @@ public class ProfileFragment extends Fragment {
                                 PhotoViewer.build(getContext(), strings, (url, imageView, index, progressBar) -> {
                                     Picasso.get().load(url).into(imageView);
                                     progressBar.setVisibility(View.GONE);
-                                }).show();
+                                }).startAtIndex(i)
+                                        .show();
                             }
                         });
                     }

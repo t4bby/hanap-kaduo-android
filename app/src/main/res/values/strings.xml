@@ -46,5 +46,7 @@
     <string name="role">Role</string>
     <string name="prompt_old_new_pass">Please enter your old and new password</string>
     <string name="prompt_change_password">Change Password</string>
+    <string name="channel_name_background">Hanap Ka-Duo</string>
+    <string name="channel_description_background">Hanap Ka-Duo Notifications</string>
 
 </resources>

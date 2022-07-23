@@ -12,6 +12,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public final class BottomNavigationBehavior extends CoordinatorLayout.Behavior<BottomNavigationView> {
 
+    private boolean behave = true;
+    public void setEnabled(boolean enabled) {
+        this.behave = enabled;
+    }
+
     public BottomNavigationBehavior(@NonNull Context context, @NonNull AttributeSet attrs) {
         super(context, attrs);
     }
@@ -22,6 +27,8 @@ public final class BottomNavigationBehavior extends CoordinatorLayout.Behavior<B
 
     public void onNestedPreScroll(@NonNull CoordinatorLayout coordinatorLayout, @NonNull BottomNavigationView child, @NonNull View target, int dx, int dy, @NonNull int[] consumed, int type) {
         super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed, type);
-        child.setTranslationY(Math.max(0.0f, Math.min(child.getHeight(), child.getTranslationY() + dy)));
+        if(behave) {
+            child.setTranslationY(Math.max(0.0f, Math.min(child.getHeight(), child.getTranslationY() + dy)));
+        }
     }
 }

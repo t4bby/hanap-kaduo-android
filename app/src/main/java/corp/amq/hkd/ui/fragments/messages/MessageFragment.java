@@ -44,6 +44,12 @@ import corp.amq.hkd.ui.fragments.profile.ProfileFragmentArgs;
 public class MessageFragment extends Fragment implements MessageInput.InputListener,
         MessageInput.TypingListener, DateFormatter.Formatter {
 
+    private MessageToolbarListener mListener;
+
+    public void setOnMyFragmentListener(MessageToolbarListener listener) {
+        this.mListener = listener;
+    }
+
     private MessagesListAdapter<Message> messagesAdapter;
     private FragmentMessageBinding binding;
     private String tid = null;
@@ -53,6 +59,32 @@ public class MessageFragment extends Fragment implements MessageInput.InputListe
 
     private String user1_uid;
     private String user2_uid;
+    private String conversation_name = "Message";
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof MessageToolbarListener) {
+            mListener = (MessageToolbarListener) context;
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        mListener.onChangeToolbarTitle(conversation_name);
+    }
+
+
+    public interface MessageToolbarListener {
+        void onChangeToolbarTitle(String title);
+    }
 
     @Override
     public void onStart() {
@@ -104,6 +136,8 @@ public class MessageFragment extends Fragment implements MessageInput.InputListe
 
                                                                                 messagesAdapter.addToStart(message, true);
                                                                             }
+                                                                            binding.textView5.setVisibility(View.GONE);
+                                                                            binding.messagesList.setVisibility(View.VISIBLE);
                                                                         }});
                                                 }
                                             }
@@ -123,6 +157,8 @@ public class MessageFragment extends Fragment implements MessageInput.InputListe
 
         if(getArguments() != null) {
             tid = MessageFragmentArgs.fromBundle(getArguments()).getMessageArg();
+            conversation_name = MessageFragmentArgs.fromBundle(getArguments()).getConversationNameArg();
+            mListener.onChangeToolbarTitle(conversation_name);
         }
 
         return binding.getRoot();
