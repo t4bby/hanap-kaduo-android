@@ -108,17 +108,6 @@ public class DashboardActivity extends AppCompatActivity implements MessageFragm
                         }
                     }
                 });
-
-
-        FirebaseMessaging.getInstance().getToken()
-                .addOnCompleteListener(task1 -> {
-                    if (!task1.isSuccessful()) {
-                        return;
-                    }
-                    String token = task1.getResult();
-                    Log.d("TAG", "onCreate: " + token);
-                });
-
     }
 
 

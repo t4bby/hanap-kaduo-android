@@ -1,5 +1,6 @@
 package corp.amq.hkd.ui.fragments.matchmaking;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -47,6 +48,7 @@ public class MatchmakingFragment extends Fragment {
     private FirebaseFirestore db;
     private FirebaseDatabase firebaseDatabase;
     private boolean loaded;
+    private ProgressDialog pd;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,6 +61,10 @@ public class MatchmakingFragment extends Fragment {
         firebaseDatabase = FirebaseDatabase.getInstance();
         matches = new ArrayList<>();
         loaded = false;
+
+        pd = new ProgressDialog(context);
+        pd.setTitle("Loading");
+        pd.show();
     }
 
     @Override
@@ -279,6 +285,7 @@ public class MatchmakingFragment extends Fragment {
                                 }
                             }
                             binding.swiperefresh.setRefreshing(false);
+                            pd.dismiss();
                         }
                 );
     }
