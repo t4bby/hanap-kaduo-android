@@ -16,6 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import corp.amq.hkd.R;
 import corp.amq.hkd.ui.DashboardActivity;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
@@ -44,11 +45,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(@NonNull RemoteMessage message) {
         super.onMessageReceived(message);
-        Log.d("TAG", message.getNotification().getTitle() + " " + message.getNotification().getBody());
-        showNotification(
-                message.getNotification().getTitle(),
-                message.getNotification().getBody()
-        );
+        if (message.getNotification() != null) {
+            Log.d("TAG", "onMessageReceived: " + message.getData());
+            showNotification(
+                    message.getNotification().getTitle(),
+                    message.getNotification().getBody()
+            );
+        }
     }
 
     public void showNotification(String title, String message) {
@@ -61,13 +64,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 PendingIntent.getActivity(this, 0, intent,
                 PendingIntent.FLAG_ONE_SHOT);
 
-
         NotificationCompat.Builder builder
                 = new NotificationCompat
                 .Builder(getApplicationContext(), NOTIFICATION_CHANNEL)
                 .setContentTitle(title)
                 .setContentText(message)
-                .setContentIntent(pendingIntent);
+                .setContentIntent(pendingIntent)
+                .setSmallIcon(R.drawable.ic_baseline_message_24);
 
         NotificationManager notificationManager
                 = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
