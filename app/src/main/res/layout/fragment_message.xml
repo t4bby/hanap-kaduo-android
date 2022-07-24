@@ -11,8 +11,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="Send a message to start messaging "
-        android:visibility="visible"
-        />
+        android:visibility="visible" />
 
     <com.stfalcon.chatkit.messages.MessagesList
         android:id="@+id/messagesList"

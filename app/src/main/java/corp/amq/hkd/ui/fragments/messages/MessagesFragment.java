@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -40,6 +41,7 @@ import corp.amq.hkd.data.model.Message;
 import corp.amq.hkd.data.model.MessageDialog;
 import corp.amq.hkd.data.model.MessageUser;
 import corp.amq.hkd.databinding.FragmentMessagesBinding;
+import corp.amq.hkd.ui.fragments.messages.adapter.CustomDialogViewHolder;
 
 
 public class MessagesFragment extends Fragment implements DialogsListAdapter.OnDialogClickListener<MessageDialog>, DateFormatter.Formatter {
@@ -227,6 +229,7 @@ public class MessagesFragment extends Fragment implements DialogsListAdapter.OnD
 
                                                                                                                                                     chats.add(messageDialog);
                                                                                                                                                     dialogsAdapter.setItems(chats);
+                                                                                                                                                    dialogsAdapter.sortByLastMessageDate();
                                                                                                                                                     binding.textView5.setVisibility(View.GONE);
                                                                                                                                                     binding.dialogsList.setVisibility(View.VISIBLE);
                                                                                                                                                 }
@@ -271,14 +274,13 @@ public class MessagesFragment extends Fragment implements DialogsListAdapter.OnD
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ImageLoader imageLoader = (imageView, url, payload) -> {
-
-            assert url != null;
-            if(!url.isEmpty()) {
-                Picasso.get().load(url).into(imageView);
-            }
-        };
-        dialogsAdapter = new DialogsListAdapter<>(imageLoader);
+        dialogsAdapter = new DialogsListAdapter<>(R.layout.item_custom_dialog, CustomDialogViewHolder.class,
+                (imageView, url, payload) -> {
+                    assert url != null;
+                    if(!url.isEmpty()) {
+                        Picasso.get().load(url).into(imageView);
+                    }
+                });
 
         dialogsAdapter.setOnDialogClickListener(this);
         dialogsAdapter.setDatesFormatter(this);

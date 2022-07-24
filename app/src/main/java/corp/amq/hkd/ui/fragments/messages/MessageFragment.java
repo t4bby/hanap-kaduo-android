@@ -3,6 +3,7 @@ package corp.amq.hkd.ui.fragments.messages;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -21,6 +23,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.squareup.picasso.Picasso;
@@ -59,6 +62,7 @@ public class MessageFragment extends Fragment implements MessageInput.InputListe
 
     private String user1_uid;
     private String user2_uid;
+    private int user_id;
     private String conversation_name = "Message";
 
     @Override
@@ -220,6 +224,86 @@ public class MessageFragment extends Fragment implements MessageInput.InputListe
                 .child("messageThread")
                 .child(tid);
 
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if((Boolean) snapshot.getValue() != null) {
+                    if((Boolean) snapshot.getValue()) {
+
+                        firebaseFirestore.collection("users").
+                                whereEqualTo("uid", user1_uid)
+                                .get().addOnCompleteListener(
+                                        task1 -> {
+                                            ArrayList<MessageUser> messageUserArrayList = new ArrayList<>();
+                                            if (task1.isSuccessful()) {
+                                                for (QueryDocumentSnapshot document : task1.getResult()) {
+                                                    User user1 = document.toObject(User.class);
+                                                    messageUserArrayList.add(new MessageUser(user1_uid, user1));
+
+                                                    assert user2_uid != null;
+                                                    firebaseFirestore.collection("users").
+                                                            whereEqualTo("uid", user2_uid)
+                                                            .get().addOnCompleteListener(
+                                                                    task2 -> {
+                                                                        if (task1.isSuccessful()) {
+                                                                            for (QueryDocumentSnapshot document2 : task2.getResult()) {
+                                                                                User user2 = document2.toObject(User.class);
+                                                                                messageUserArrayList.add(new MessageUser(user2_uid, user2));
+
+                                                                                Message message;
+                                                                                if(auth.getUid().equals(user1_uid)) {
+                                                                                    message = new Message("typing",
+                                                                                            messageUserArrayList.get(1),
+                                                                                            "User is typing...",
+                                                                                            new Date().toString());
+                                                                                } else {
+                                                                                    message = new Message("typing",
+                                                                                            messageUserArrayList.get(0),
+                                                                                            "User is typing...",
+                                                                                            new Date().toString());
+                                                                                }
+
+                                                                                messagesAdapter.addToStart(message, true);
+                                                                            }
+                                                                        }
+                                                                    });
+                                                }
+                                            }
+                                        });
+
+                    } else {
+                        messagesAdapter.deleteById("typing");
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        };
+
+        DatabaseReference user1MetadataRef = firebaseDatabase.getReference("main-data")
+                .child("messageThreadMetadata")
+                .child(tid)
+                .child("user1_typing");
+
+        DatabaseReference user2MetadataRef = firebaseDatabase.getReference("main-data")
+                .child("messageThreadMetadata")
+                .child(tid)
+                .child("user2_typing");
+
+        firebaseDatabase.getReference("main-data")
+                .child("messageThreadMetadata")
+                .child(tid)
+                .child("user1_uid")
+                .get().addOnSuccessListener(dataSnapshot -> {
+                    if (dataSnapshot.getValue().equals(auth.getUid())) {
+                        user2MetadataRef.addValueEventListener(valueEventListener);
+                    } else {
+                        user1MetadataRef.addValueEventListener(valueEventListener);
+                    }
+                });
+
         ChildEventListener msgListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -318,11 +402,53 @@ public class MessageFragment extends Fragment implements MessageInput.InputListe
     @Override
     public void onStartTyping() {
 
+        firebaseDatabase.getReference("main-data")
+                .child("messageThreadMetadata")
+                .child(tid)
+                .child("user1_uid")
+                .get().addOnSuccessListener(dataSnapshot -> {
+                    if (dataSnapshot.getValue() != null) {
+                        if (dataSnapshot.getValue().equals(auth.getUid())) {
+                            firebaseDatabase.getReference("main-data")
+                                    .child("messageThreadMetadata")
+                                    .child(tid)
+                                    .child("user1_typing")
+                                    .setValue(true);
+                        } else {
+                            firebaseDatabase.getReference("main-data")
+                                    .child("messageThreadMetadata")
+                                    .child(tid)
+                                    .child("user2_typing")
+                                    .setValue(true);
+                        }
+                    }
+                });
+
+
     }
 
     @Override
     public void onStopTyping() {
+        firebaseDatabase.getReference("main-data")
+                .child("messageThreadMetadata")
+                .child(tid)
+                .child("user1_uid")
+                .get().addOnSuccessListener(dataSnapshot -> {
+            if(dataSnapshot.getValue().equals(auth.getUid())) {
+                firebaseDatabase.getReference("main-data")
+                        .child("messageThreadMetadata")
+                        .child(tid)
+                        .child("user1_typing")
+                        .setValue(false);
+            } else {
+                firebaseDatabase.getReference("main-data")
+                        .child("messageThreadMetadata")
+                        .child(tid)
+                        .child("user2_typing")
+                        .setValue(false);
+            }
 
+        });
     }
 
 

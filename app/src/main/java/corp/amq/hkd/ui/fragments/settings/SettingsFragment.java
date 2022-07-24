@@ -154,7 +154,7 @@ public class SettingsFragment extends Fragment {
         binding.imageGrid.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String[] options = {"Remove the image", "Replace image from Gallery"};
+                String[] options = {"Remove the image"};
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle("Image Options");
                 builder.setItems(options, (dialog, which) -> {
@@ -180,14 +180,6 @@ public class SettingsFragment extends Fragment {
                                 }
                             }
                         });
-                    } else if (which == 1) {
-                        if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE)
-                                == PackageManager.PERMISSION_DENIED) {
-                            ActivityCompat.requestPermissions(getActivity(),
-                                    new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_REQUEST);
-                        } else {
-                            pickFromGallery();
-                        }
                     }
                 });
                 builder.create().show();
