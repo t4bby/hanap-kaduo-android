@@ -53,8 +53,8 @@ public class LoginFragment extends Fragment {
         AwesomeValidation mAwesomeValidation = new AwesomeValidation(ValidationStyle.TEXT_INPUT_LAYOUT);
         mAwesomeValidation.addValidation(binding.inputEmailLayout, Patterns.EMAIL_ADDRESS, "Please check the email address");
 
-        String regexPassword = "(?=.*[a-z])(?=.*[A-Z])(?=.*[\\d]).{8,}";
-        mAwesomeValidation.addValidation(binding.inputPasswordLayout, regexPassword, "Password requires 8 characters with at least 1 capital letter, special character and number");
+        String regexPassword = "{8,}";
+        mAwesomeValidation.addValidation(binding.inputPasswordLayout, regexPassword, "Password requires at least 8 characters");
 
         binding.loginBtn.setOnClickListener(view -> {
             if(mAwesomeValidation.validate()) {

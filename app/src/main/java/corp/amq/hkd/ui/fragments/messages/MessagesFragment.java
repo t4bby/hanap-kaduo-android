@@ -76,184 +76,186 @@ public class MessagesFragment extends Fragment implements DialogsListAdapter.OnD
         dialogsAdapter.clear();
         binding.swiperefresh.setRefreshing(true);
 
-        firebaseDatabase.getReference("main-data")
-                .child("users")
-                .child(auth.getUid())
-                .child("activeThreads")
-                .get()
-                .addOnCompleteListener(task -> {
-                    if(task.isSuccessful()) {
-                        binding.swiperefresh.setRefreshing(false);
+        if (auth.getUid() != null) {
+            firebaseDatabase.getReference("main-data")
+                    .child("users")
+                    .child(auth.getUid())
+                    .child("activeThreads")
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        if(task.isSuccessful()) {
+                            binding.swiperefresh.setRefreshing(false);
 
-                        for (DataSnapshot dts: task.getResult().getChildren()) {
+                            for (DataSnapshot dts: task.getResult().getChildren()) {
 
-                            assert dts.getValue() != null;
-                            threads.add((String) dts.getValue());
+                                assert dts.getValue() != null;
+                                threads.add((String) dts.getValue());
 
-                            if(!load) {
-                                DatabaseReference newMsgThread = firebaseDatabase.getReference("main-data")
-                                        .child("unSeenMsgCountData")
-                                        .child((String) dts.getValue());
+                                if(!load) {
+                                    DatabaseReference newMsgThread = firebaseDatabase.getReference("main-data")
+                                            .child("unSeenMsgCountData")
+                                            .child((String) dts.getValue());
 
-                                ChildEventListener childEventListener = new ChildEventListener() {
-                                    @Override
-                                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                                    }
+                                    ChildEventListener childEventListener = new ChildEventListener() {
+                                        @Override
+                                        public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                                        }
 
-                                    @Override
-                                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                                        getChats();
-                                    }
+                                        @Override
+                                        public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                                            getChats();
+                                        }
 
-                                    @Override
-                                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                                        @Override
+                                        public void onChildRemoved(@NonNull DataSnapshot snapshot) {
 
-                                    }
+                                        }
 
-                                    @Override
-                                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                                        @Override
+                                        public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
-                                    }
+                                        }
 
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
 
-                                    }
-                                };
-                                newMsgThread.addChildEventListener(childEventListener);
-                                load = true;
+                                        }
+                                    };
+                                    newMsgThread.addChildEventListener(childEventListener);
+                                    load = true;
+                                }
+
                             }
 
-                        }
+                            for (String thread: threads) {
+                                firebaseDatabase.getReference("main-data")
+                                        .child("messageThreadMetadata")
+                                        .child(thread)
+                                        .get()
+                                        .addOnCompleteListener(task12 -> {
+                                                    if(task12.isSuccessful()) {
 
-                        for (String thread: threads) {
-                            firebaseDatabase.getReference("main-data")
-                                    .child("messageThreadMetadata")
-                                    .child(thread)
-                                    .get()
-                                    .addOnCompleteListener(task12 -> {
-                                                if(task12.isSuccessful()) {
+                                                        ArrayList<MessageUser> messageUserArrayList = new ArrayList<>();
+                                                        String user1_uid = (String) task12.getResult().child("user1_uid").getValue();
+                                                        String user2_uid = (String) task12.getResult().child("user2_uid").getValue();
+                                                        String lastchatid = (String) task12.getResult().child("lastChatId").getValue();
 
-                                                    ArrayList<MessageUser> messageUserArrayList = new ArrayList<>();
-                                                    String user1_uid = (String) task12.getResult().child("user1_uid").getValue();
-                                                    String user2_uid = (String) task12.getResult().child("user2_uid").getValue();
-                                                    String lastchatid = (String) task12.getResult().child("lastChatId").getValue();
+                                                        assert user1_uid != null;
+                                                        firebaseFirestore.collection("users").
+                                                                whereEqualTo("uid", user1_uid)
+                                                                .get().addOnCompleteListener(
+                                                                        task1 -> {
+                                                                            if(task1.isSuccessful()) {
+                                                                                if (task1.getResult().getDocuments().size() > 0) {
+                                                                                    User user1 = task1.getResult().getDocuments().get(0).toObject(User.class);
+                                                                                    messageUserArrayList.add(new MessageUser(user1_uid, user1));
 
-                                                    assert user1_uid != null;
-                                                    firebaseFirestore.collection("users").
-                                                            whereEqualTo("uid", user1_uid)
-                                                            .get().addOnCompleteListener(
-                                                                    task1 -> {
-                                                                        if(task1.isSuccessful()) {
-                                                                            if (task1.getResult().getDocuments().size() > 0) {
-                                                                                User user1 = task1.getResult().getDocuments().get(0).toObject(User.class);
-                                                                                messageUserArrayList.add(new MessageUser(user1_uid, user1));
+                                                                                    assert user2_uid != null;
+                                                                                    firebaseFirestore.collection("users").
+                                                                                            whereEqualTo("uid", user2_uid)
+                                                                                            .get().addOnCompleteListener(
+                                                                                                    task2 -> {
+                                                                                                        if (task2.isSuccessful()) {
 
-                                                                                assert user2_uid != null;
-                                                                                firebaseFirestore.collection("users").
-                                                                                        whereEqualTo("uid", user2_uid)
-                                                                                        .get().addOnCompleteListener(
-                                                                                                task2 -> {
-                                                                                                    if (task2.isSuccessful()) {
-
-                                                                                                        if (task2.getResult().getDocuments().size() > 0) {
-                                                                                                            User user2 = task2.getResult().getDocuments().get(0).toObject(User.class);
-                                                                                                            messageUserArrayList.add(new MessageUser(user2_uid, user2));
+                                                                                                            if (task2.getResult().getDocuments().size() > 0) {
+                                                                                                                User user2 = task2.getResult().getDocuments().get(0).toObject(User.class);
+                                                                                                                messageUserArrayList.add(new MessageUser(user2_uid, user2));
 
 
-                                                                                                            assert lastchatid != null;
-                                                                                                            firebaseDatabase.getReference("main-data")
-                                                                                                                    .child("messageThread").child(thread)
-                                                                                                                    .child(lastchatid).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                                                                                                                        @Override
-                                                                                                                        public void onComplete(@NonNull Task<DataSnapshot> task3) {
-                                                                                                                            if(task3.isSuccessful()) {
-                                                                                                                                firebaseDatabase
-                                                                                                                                        .getReference("main-data")
-                                                                                                                                        .child("unSeenMsgCountData")
-                                                                                                                                        .child(thread).get().addOnCompleteListener(task4 -> {
-                                                                                                                                            if (task4.isSuccessful()) {
+                                                                                                                assert lastchatid != null;
+                                                                                                                firebaseDatabase.getReference("main-data")
+                                                                                                                        .child("messageThread").child(thread)
+                                                                                                                        .child(lastchatid).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                                                                                                            @Override
+                                                                                                                            public void onComplete(@NonNull Task<DataSnapshot> task3) {
+                                                                                                                                if(task3.isSuccessful()) {
+                                                                                                                                    firebaseDatabase
+                                                                                                                                            .getReference("main-data")
+                                                                                                                                            .child("unSeenMsgCountData")
+                                                                                                                                            .child(thread).get().addOnCompleteListener(task4 -> {
+                                                                                                                                                if (task4.isSuccessful()) {
 
-                                                                                                                                                Message message =  new Message(lastchatid,
-                                                                                                                                                        messageUserArrayList.get(0),
-                                                                                                                                                        "",
-                                                                                                                                                        new Date().toString());
+                                                                                                                                                    Message message =  new Message(lastchatid,
+                                                                                                                                                            messageUserArrayList.get(0),
+                                                                                                                                                            "",
+                                                                                                                                                            new Date().toString());
 
-                                                                                                                                                if(task3.getResult().hasChild("chatMessage")) {
-                                                                                                                                                    if(task3.getResult().child("uid").getValue() == user1_uid) {
-                                                                                                                                                        message = new Message(lastchatid, messageUserArrayList.get(0),
-                                                                                                                                                                (String) task3.getResult().child("chatMessage").getValue(),
-                                                                                                                                                                (String) task3.getResult().child("chatTimestamp").getValue());
-                                                                                                                                                    } else {
-                                                                                                                                                        message = new Message(lastchatid,
-                                                                                                                                                                messageUserArrayList.get(1),
-                                                                                                                                                                (String) task3.getResult().child("chatMessage").getValue(),
-                                                                                                                                                                (String) task3.getResult().child("chatTimestamp").getValue());
+                                                                                                                                                    if(task3.getResult().hasChild("chatMessage")) {
+                                                                                                                                                        if(task3.getResult().child("uid").getValue() == user1_uid) {
+                                                                                                                                                            message = new Message(lastchatid, messageUserArrayList.get(0),
+                                                                                                                                                                    (String) task3.getResult().child("chatMessage").getValue(),
+                                                                                                                                                                    (String) task3.getResult().child("chatTimestamp").getValue());
+                                                                                                                                                        } else {
+                                                                                                                                                            message = new Message(lastchatid,
+                                                                                                                                                                    messageUserArrayList.get(1),
+                                                                                                                                                                    (String) task3.getResult().child("chatMessage").getValue(),
+                                                                                                                                                                    (String) task3.getResult().child("chatTimestamp").getValue());
+                                                                                                                                                        }
                                                                                                                                                     }
-                                                                                                                                                }
 
-                                                                                                                                                MessageDialog messageDialog = null;
-                                                                                                                                                String unreadUid = (String) task4.getResult().child("userId").getValue();
-                                                                                                                                                Long unreadCount = null;
+                                                                                                                                                    MessageDialog messageDialog = null;
+                                                                                                                                                    String unreadUid = (String) task4.getResult().child("userId").getValue();
+                                                                                                                                                    Long unreadCount = null;
 
-                                                                                                                                                if (unreadUid != null) {
-                                                                                                                                                    if(!unreadUid.equals(auth.getUid())) {
-                                                                                                                                                        unreadCount = (Long) task4.getResult().child("unSeenMsgCount").getValue();
+                                                                                                                                                    if (unreadUid != null) {
+                                                                                                                                                        if(!unreadUid.equals(auth.getUid())) {
+                                                                                                                                                            unreadCount = (Long) task4.getResult().child("unSeenMsgCount").getValue();
+                                                                                                                                                        }
                                                                                                                                                     }
+
+                                                                                                                                                    if(unreadCount == null) {
+                                                                                                                                                        unreadCount = 0L;
+                                                                                                                                                    }
+
+                                                                                                                                                    if (auth.getUid().equals(user1_uid)) {
+                                                                                                                                                        messageDialog = new MessageDialog(
+                                                                                                                                                                thread,
+                                                                                                                                                                messageUserArrayList.get(1).getUser().getDisplay_name(),
+                                                                                                                                                                messageUserArrayList.get(1).getUser().getProfile_img_url(),
+                                                                                                                                                                messageUserArrayList,
+                                                                                                                                                                message,
+                                                                                                                                                                unreadCount.intValue());
+                                                                                                                                                    } else if (auth.getUid().equals(user2_uid)) {
+                                                                                                                                                        messageDialog = new MessageDialog(
+                                                                                                                                                                thread,
+                                                                                                                                                                messageUserArrayList.get(0).getUser().getDisplay_name(),
+                                                                                                                                                                messageUserArrayList.get(0).getUser().getProfile_img_url(),
+                                                                                                                                                                messageUserArrayList,
+                                                                                                                                                                message,
+                                                                                                                                                                unreadCount.intValue());
+                                                                                                                                                    }
+
+                                                                                                                                                    chats.add(messageDialog);
+                                                                                                                                                    dialogsAdapter.setItems(chats);
+                                                                                                                                                    binding.textView5.setVisibility(View.GONE);
+                                                                                                                                                    binding.dialogsList.setVisibility(View.VISIBLE);
                                                                                                                                                 }
+                                                                                                                                            });
 
-                                                                                                                                                if(unreadCount == null) {
-                                                                                                                                                    unreadCount = 0L;
-                                                                                                                                                }
 
-                                                                                                                                                if (auth.getUid().equals(user1_uid)) {
-                                                                                                                                                    messageDialog = new MessageDialog(
-                                                                                                                                                            thread,
-                                                                                                                                                            messageUserArrayList.get(1).getUser().getDisplay_name(),
-                                                                                                                                                            messageUserArrayList.get(1).getUser().getProfile_img_url(),
-                                                                                                                                                            messageUserArrayList,
-                                                                                                                                                            message,
-                                                                                                                                                            unreadCount.intValue());
-                                                                                                                                                } else if (auth.getUid().equals(user2_uid)) {
-                                                                                                                                                    messageDialog = new MessageDialog(
-                                                                                                                                                            thread,
-                                                                                                                                                            messageUserArrayList.get(0).getUser().getDisplay_name(),
-                                                                                                                                                            messageUserArrayList.get(0).getUser().getProfile_img_url(),
-                                                                                                                                                            messageUserArrayList,
-                                                                                                                                                            message,
-                                                                                                                                                            unreadCount.intValue());
-                                                                                                                                                }
-
-                                                                                                                                                chats.add(messageDialog);
-                                                                                                                                                dialogsAdapter.setItems(chats);
-                                                                                                                                                binding.textView5.setVisibility(View.GONE);
-                                                                                                                                                binding.dialogsList.setVisibility(View.VISIBLE);
-                                                                                                                                            }
-                                                                                                                                        });
-
+                                                                                                                                }
 
                                                                                                                             }
-
-                                                                                                                        }
-                                                                                                                    });
+                                                                                                                        });
+                                                                                                            }
                                                                                                         }
                                                                                                     }
-                                                                                                }
-                                                                                        );
+                                                                                            );
+                                                                                }
                                                                             }
                                                                         }
-                                                                    }
-                                                            );
+                                                                );
 
 
 
 
+                                                    }
                                                 }
-                                            }
-                                    );
+                                        );
+                            }
                         }
-                    }
-                });
+                    });
+        }
 
     }
 

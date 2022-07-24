@@ -63,6 +63,7 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         progressDialog = ProgressDialog.show(context, "Loading","Please Wait...", true);
+        progressDialog.setCancelable(false);
 
         if(profileUid == null) {
             profileUid = mAuth.getUid();

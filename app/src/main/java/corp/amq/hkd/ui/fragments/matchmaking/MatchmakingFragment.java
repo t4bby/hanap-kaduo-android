@@ -64,6 +64,7 @@ public class MatchmakingFragment extends Fragment {
 
         pd = new ProgressDialog(context);
         pd.setTitle("Loading");
+        pd.setCancelable(false);
         pd.show();
     }
 
@@ -291,6 +292,8 @@ public class MatchmakingFragment extends Fragment {
     }
 
     private void changeMatch() {
+        try {
+
         if(matches.size() > 0) {
             binding.textView4.setVisibility(View.GONE);
             binding.swipeView.setVisibility(View.VISIBLE);
@@ -332,14 +335,19 @@ public class MatchmakingFragment extends Fragment {
                         }
                     });
         } else {
-            binding.textView4.setVisibility(View.VISIBLE);
-            binding.swipeView.setVisibility(View.GONE);
-            binding.floatingActionButton.setVisibility(View.GONE);
-            binding.floatingActionButton2.setVisibility(View.GONE);
+
+
+                binding.textView4.setVisibility(View.VISIBLE);
+                binding.swipeView.setVisibility(View.GONE);
+                binding.floatingActionButton.setVisibility(View.GONE);
+                binding.floatingActionButton2.setVisibility(View.GONE);
+
         }
 
         binding.swiperefresh.setRefreshing(false);
 
+        } catch (NullPointerException ignored) {
+        }
     }
 
     @Override
